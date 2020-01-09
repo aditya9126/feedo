@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>
+            Join Now
+        </title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href= "{{ url_for('static', filename='join.css') }}">
+    </head>
+ 
+ <body>
+			   
+		<form method="POST" action="">
+        {{ form.hidden_tag() }}
+		
+			 <img class="logo" src= {{ thefeedo_1 }} alt="logo">
+			 <label class="just">Just one step away !</label>
+						  
+			 <fieldset class="div">
+				
+				{{ form.username.label(class = "label1") }}
+				
+				{% if form.username.errors %}
+					{{ form.username(class="text1 is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.username.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.username(class="text1") }}
+				{% endif %}
+				
+				<br><br>
+
+				{{ form.name.label(class = "label2") }}
+				
+				{% if form.name.errors %}
+					{{ form.name(class="text2 is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.name.errors %}
+							<span style="color:blue">{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.name(class="text2") }}
+				{% endif %}
+				
+				<br><br>
+				
+				{{ form.email.label(class = "label3") }}
+				
+				{% if form.email.errors %}
+					{{ form.email(class="text3 is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.email.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.email(class="text3") }}
+				{% endif %}
+				
+				<br><br>
+
+				{{ form.password.label(class = "label4") }}
+				
+				{% if form.password.errors %}
+					{{ form.password(class="text4 is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.password(class="text4") }}
+				{% endif %}
+				
+				<br><br>
+				
+				{{ form.confirm_password.label(class = "label4") }}
+				
+				{% if form.confirm_password.errors %}
+					{{ form.confirm_password(class="text4 is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.confirm_password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.confirm_password(class="text4") }}
+				{% endif %}
+				
+			</fieldset>
+			
+			{{ form.agree_cont(class ="cta") }}
+			
+			<label class="already">Already on feedo? <a href="{{ url_for('signin') }}">Sign in</a></label>
+		</form>
+</body>
+</html>

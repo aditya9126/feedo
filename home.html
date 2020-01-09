@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Home Page
+        </title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href= "{{ url_for('static', filename='home.css') }}">
+    </head>
+    <body>
+        
+       <div class="div1">
+           <img class="logo" src = {{ thefeedo_1 }} ></img>
+		   
+           <button class="sign_up" onclick="window.location.href ='/signin';">Sign in</button> 
+           <button class="join_now" onclick="window.location.href ='/join';">Join Now</button> 
+          
+       
+       <h1 class="welcome">Welcome to <br>rating based<br> feedback platform</h1>
+	   
+       <button class="get_started" onclick="window.location.href ='/join';">Get Started</button><br> 
+       
+	   <img class="home_image" src = {{ home_feedo }} ></img>
+    </div> 
+        
+
+    </body>
+</html>

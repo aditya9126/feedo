@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% if name == current_user.name %}
+		<title>{{ name }}({{ username }})</title>
+		
+		{% elif name != current_user.name %}
+		<title>{{ name }}({{ username }})</title>
+		
+		{% endif %}
+		
+		<meta  name="viewport" content="width=device-width initial-scale=1.0">
+		<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<!--<script type="text/javascript" src="{{ url_for('static', filename='profile.js') }}"></script>-->
+		<!-- ye neeche wale line profile mai nahi h bc.-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	
+	</head>
+
+	<body>
+	
+	<div class="header">
+			<a href="#"><img src="{{ feedo_logo }}" width="50px" height="40px" style=""></a> <!-- im making this link ka edit link. but i will change it to about page link...-->
+			
+			<form class="search" method="POST" action="">
+			{{ form.hidden_tag() }}
+			
+				{% if form.username.errors %}
+					{{ form.username }}
+					<div class="invalid-feedback">
+						{% for error in form.username.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.username }}
+				{% endif %}
+				
+				{{ form.search }}
+			</form>
+			
+			<a href="{{url_for('logout')}}"><img src="{{ profile_icon }}" width="50px" height="40px"></a> <!--i made a log out link here. but dont forget to change it -->
+		</div>
+
+		<div class="about">
+			<img src="{{ profile_pic }}" width="200px" height="200px" class="image">
+			{% if name == current_user.name %}
+			<h2 style="margin-top:0px;color:#130F40;">{{ name }}</h2>
+			<h5>@{{ username }}</h5>
+			<br>
+			<h5 style="color:#130F40;">"{{ bio }}"</h5>
+			
+			{% elif name != current_user.name %}
+			<h2 style="margin-top:0px;color:#130F40;">{{ name}}</h2> <!-- dynamic -->
+			<h5>@{{ username}}</h5> <!-- dynamic -->
+			<br>
+			<h5 style="color:#130F40;">"{{ bio}}"</h5> <!-- dynamic -->
+			
+			{% endif %}
+			<!--<div id="wrapper" style="width:100px;margin:10px auto 0px;overflow:auto;">
+				<div id="event">20 EVENTS</div>
+				<div id="ver-line"></div>
+				<div id="event">100 RATINGS</div>
+			</div>-->
+		</div>
+		
+		
+		
+		<div class="rate">MY RATINGS / Rate Me ! </div>
+		
+		{% if name == current_user.name %}
+		<div class="my-rate">
+			<div id="self-outspoken">
+				<h3>"OUTSPOKEN"</h3>
+				{% for out in  range(outspoken) %}
+				<span><img src="{{profile_pic}}" width="20px" height="20px" id="starc1"></span>
+				{% endfor %}
+				{% for out in  range(outspoken, 5) %}
+				<span><img src="{{star_icon}}" width="20px" height="20px" id="starc1"></span>
+				{% endfor %}
+				
+			</div>
+			<div id="self-nature">
+				<h3>"NATURE"</h3>
+				{% for nat in range(nature) %}
+				<span><img src="{{profile_pic}}" width="20px" height="20px" id="starc1"></span>
+				{% endfor %}
+				{% for nat in range(nature,5) %}
+				<span><img src="{{star_icon}}" width="20px" height="20px" id="starc1"></span>
+				{% endfor %}
+			</div>
+			<div id="self-confidence">
+				<h3>"CONFIDENCE"</h3>
+				{% for con in range(confidence) %}
+				<span><img src="{{profile_pic}}" width="20px" height="20px" id="starc1"></span>
+				{% endfor %}
+				{% for con in range(confidence,5) %}
+				<span><img src="{{star_icon}}" width="20px" height="20px" id="starc1"></span>
+				{% endfor %}
+			</div>
+
+		</div>
+		{% elif name != current_user.name %}
+		
+		<form class="search" method="POST" action="">
+			{{ form.hidden_tag() }}
+			<div class="rate-me">
+		
+				<div id="outspoken">
+				
+					<h3 style="font-size:12px;color:#130F40;">"OUTSPOKEN"</h3>
+					
+					<input type="radio" id="staro1" name="star" class="star_o" onclick="outspoken(1)">
+					<label for="sta1"><img src= "static/star_icon.svg" width="20px" height="20px" id="staro1"></label>
+					
+					<input type="radio" id="staro2" name="star" class="star_o" onclick="outspoken(2)">
+					<label for="sta2"><img src= "static/star_icon.svg" width="20px" height="20px" id="staro2"></label>
+					
+					<input type="radio" id="staro3" name="star" class="star_o" onclick="outspoken(3)">
+					<label for="sta3"><img src= "static/star_icon.svg" width="20px" height="20px" id="staro3"></label>
+					
+					<input type="radio" id="staro4" name="star" class="star_o" onclick="outspoken(4)">
+					<label for="sta4"><img src= "static/star_icon.svg" width="20px" height="20px" id="staro4"></label>
+					
+					<input type="radio" id="staro5" name="star" class="star_o" onclick="outspoken(5)">
+					<label for="sta5"><img src= "static/star_icon.svg" width="20px" height="20px" id="staro5"></label>
+					
+					<br>
+					
+					<img src= {{ smiley1 }} width="70px" height="70px;" style="margin-top:5px;" id="outspoken_smiley">
+				
+				</div>
+				
+				<div id="nature">
+					<h3 style="font-size:12px;color:#130F40;">"NATURE"</h3>
+					
+					<input type="radio" id="star_n1" name="star" class="star_n" onclick="nature(1)">
+					<label for="star_n1"><img src= "{{star_icon}}" width="20px" height="20px" id="starn1"></label>
+					
+					<input type="radio" id="star_n2" name="star" class="star_n" onclick="nature(2)">
+					<label for="star_n2"><img src= "{{star_icon}}" width="20px" height="20px" id="starn2"></label>
+					<span a='2'></span>
+					
+					<input type="radio" id="star_n3" name="star" class="star_n" onclick="nature(3)">
+					<label for="star_n3"><img src= "{{star_icon}}" width="20px" height="20px" id="starn3"></label>
+					
+					<input type="radio" id="star_n4" name="star" class="star_n" onclick="nature(4)">
+					<label for="star_n4"><img src= "{{star_icon}}" width="20px" height="20px" id="starn4"></label>
+					
+					<input type="radio" id="star_n5" name="star" class="star_n" onclick="nature(5)">
+					<label for="star_n5"><img src= "{{star_icon}}" width="20px" height="20px" id="starn5"></label>
+					
+					<br>
+					
+					<img src= "{{ smiley1 }}" width="70px" height="70px;" style="margin-top:5px;" id="nature_smiley">
+				</div>	
+				
+				<div id="confidence">
+					<h3 style="font-size:12px;color:#130F40;">"CONFIDENCE"</h3>
+					<input type="radio" id="sta1" name="star" class="star_c" onclick="confidence(1)">
+					<label for="sta1"><img src= "{{star_icon}}" width="20px" height="20px" id="starc1"></label>
+							
+					<input type="radio" id="sta2" name="star" class="star_c" onclick="confidence(2)">
+					<label for="sta2"><img src= "{{star_icon}}" width="20px" height="20px" id="starc2"></label>
+							
+					<input type="radio" id="sta3" name="star" class="star_c" onclick="confidence(3)">
+					<label for="sta3"><img src= "{{star_icon}}" width="20px" height="20px" id="starc3"></label>
+							
+					<input type="radio" id="sta4" name="star" class="star_c" onclick="confidence(4)">
+					<label for="sta4"><img src= "{{star_icon}}" width="20px" height="20px" id="starc4"></label>
+							
+					<input type="radio" id="sta5" name="star" class="star_c" onclick="confidence(5)">
+					<label for="sta5"><img src= "{{star_icon}}" width="20px" height="20px" id="starc5"></label>
+							
+					<br>
+							
+					<img src= "{{ smiley1 }}" width="70px" height="70px;" style="margin-top:5px;" id="confidence_smiley">
+				</div>
+				
+				<h4 style="font-size:12px;color:#130F40;">YOU RATED 2.6/5 </h4> <!-- dynamic -->
+		
+			</div>
+			
+			<div onclick="myFun()">
+				{{ r_form.save }}
+			</div>
+			<div id="demo">
+		</div>
+		</form>
+		
+		
+		{% endif %}
+		
+		<div class="feedo">EXPLORE/ Feedo Me !</div>
+		
+		
+		
+		<!-- ye wale part par last mai changes karenge bocz ye abhi wese bhi kaam nahi kar rha h-->
+		{% if name == current_user.name %}
+		
+		<div id="feedback-container">
+			<div id="one-feedback-container">
+			{%for feed in feed_msg%}										
+				<div id="retweet">
+				<!-- <i class="fas fa-user-circle"></i> -->
+						
+						<div id="internal">
+							<h3>{{feed.sender_username}}</h3>
+							<h6>@{{feed.sender_username}}</h6>
+							<p>{{feed.message}} </p>
+						</div>
+						
+						<!-- <i class="fas fa-ellipsis-v"></i> --> 
+				</div>
+				
+				<div id="retweet-buttons">
+					<!-- <i class="fas fa-save" style="float:right;margin-top:10px;"></i> -->
+					<input type="submit" value="REQUEST IDENTITY">
+				</div>
+				<hr>
+				{%endfor%}
+			</div>
+			
+		</div>
+		{% elif name != current_user.name %}
+		
+		<form class="feedo-form"  method="POST" action="">
+		{{ form.hidden_tag() }}
+			
+			{{feed_form.feedback}}
+			<div id="gif"> 
+				<a href="#"> <img src= "{{ gif_icon }}" width="50px" height="40px"> </a> <!-- # link -->
+			</div>
+			
+			<div id="gif" style="border-top-right-radius:10px;">
+				<a href="#"><img src= "{{ badge_icon }}" width="50px" height="40px"></a> <!-- # link -->
+			</div>
+			
+			<div id="re-send">
+				{{feed_form.send}}
+				<!-- idher abhi reset wala chahiye. if possible ye html se hi kar denge -->
+			</div>
+		</form>
+		
+		{% endif %}
+	</body>
+	<!--<script>
+		//document.getElementById("mybtn").addEventListener('click',myFun);
+		function myFun(){
+			document.getElementById("demo").innerHTML = "I'm in javascript";
+			/*var data = {
+    screening: '1',
+    assistance: 'wheelchair access',
+    guests: [
+        {
+            first: 'John',
+            last: 'Smith'
+        },
+        {
+            first: 'Dave',
+            last: 'Smith'
+        }
+    ]
+};*/
+
+var data = {name:'register'};
+
+$.ajax({
+    type: 'POST',
+    url: '/<name>',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json; charset=utf-8'
+}).done(function(msg) {
+    alert("Data Saved: " + msg);
+});
+		}
+	</script>-->
+	
+	<script>
+		var con= null, nat= null, out= null;
+
+function confidence(x){
+	con = x;
+	var ele = document.getElementsByClassName("star_c");
+	
+	for(i=0;i<x;i++){
+		var s = "starc"+(i+1);
+		document.getElementById(s).src = "static/profile_icon.svg";
+	}
+	for(i=x;i<ele.length;i++){
+		var s = "starc"+(i+1);
+		document.getElementById(s).src = "static/star_icon.svg";
+	}
+	
+	switch(x){
+		case 1:
+			document.getElementById("confidence_smiley").src = "static/smiley1.svg";
+			break;
+		case 2:
+			document.getElementById("confidence_smiley").src = "static/smiley2.svg";
+			break;
+		case 3:
+			document.getElementById("confidence_smiley").src = "static/smiley3.svg";
+			break;
+		case 4:
+			document.getElementById("confidence_smiley").src = "static/smiley4.svg";
+			break;
+		case 5:
+			document.getElementById("confidence_smiley").src = "static/smiley5.svg";
+			
+	}
+	
+}
+
+function outspoken(x){
+	out=x;
+	var ele = document.getElementsByClassName("star-o");
+	for(i=0;i<x;i++){
+		var s = "staro"+(i+1);
+		document.getElementById(s).src = "static/profile_icon.svg";
+	}
+	for(i=x;i<ele.length;i++){
+		var s = "staro"+(i+1);
+		document.getElementById(s).src = "static/star_icon.svg";
+	}
+	switch(x){
+		case 1:
+			document.getElementById("outspoken_smiley").src = "static/smiley1.svg";
+			break;
+		case 2:
+			document.getElementById("outspoken_smiley").src = "static/smiley2.svg";
+			break;
+		case 3:
+			document.getElementById("outspoken_smiley").src = "static/smiley3.svg";
+			break;
+		case 4:
+			document.getElementById("outspoken_smiley").src = "static/smiley4.svg";
+			break;
+		case 5:
+			document.getElementById("outspoken_smiley").src = "static/smiley5.svg";
+	}
+}
+
+function nature(x){
+	nat=x;
+	var ele = document.getElementsByClassName("star_n");
+	for(i=0;i<x;i++){
+		var s = "starn"+(i+1);
+		document.getElementById(s).src = "static/profile_icon.svg";
+	}
+	for(i=x;i<ele.length;i++){
+		var s = "starn"+(i+1);
+		document.getElementById(s).src = "static/star_icon.svg";
+	}
+	switch(x){
+		case 1:
+			document.getElementById("nature_smiley").src = "static/smiley1.svg";
+			break;
+		case 2:
+			document.getElementById("nature_smiley").src = "static/smiley2.svg";
+			break;
+		case 3:
+			document.getElementById("nature_smiley").src = "static/smiley3.svg";
+			break;
+		case 4:
+			document.getElementById("nature_smiley").src = "static/smiley4.svg";
+			break;
+		case 5:
+			document.getElementById("nature_smiley").src = "static/smiley5.svg";
+	}
+	
+}
+
+function myFun(){
+	document.getElementById("demo").innerHTML = "I'm in javascript";
+	var data = {nature:nat,confidence:con,outspoken:out};
+	//var data = {amit:'profile'};
+	$.ajax({
+		type: 'POST',
+		url: '/<name>',
+		data: JSON.stringify(data),
+		dataType: 'json',
+		contentType: 'application/json; charset=utf-8'
+	}).done(function(msg) {
+		alert("Data Saved: " + msg);
+	});
+}
+
+
+	</script>
+</html>

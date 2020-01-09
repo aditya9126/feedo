@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+</body>
+    <head>
+        <title>
+            Sign in
+        </title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href= "{{ url_for('static', filename='signin.css') }}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+	
+	
+    <body>
+           
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}
+		   
+				<img class="logo" src = {{ thefeedo_1 }} alt="logo">
+				<label class="just">WELCOME BACK !</label>
+					  
+			<fieldset class="div">
+				<div>
+					{{ form.username.label(class = "label1") }}
+					
+					{% if form.username.errors %}
+						{{ form.username(class="text1 is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.username.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.username(class="text1") }}
+					{% endif %}
+				</div>
+				
+				<div>
+					{{	form.password.label(class = "label4") }}
+					{% if form.password.errors %}
+						{{ form.password(class="text4 is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.password.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.password(class="text4") }}
+					{% endif %}
+				</div>
+				
+				<div class="form-check">
+						{{ form.remember(class="form-check-input") }}
+						{{ form.remember.label(class="form-check-label") }}
+				</div>
+				
+			</fieldset>
+				
+			<div onclick="myFun()">
+				{{ form.sign_in(class ="cta") }}
+			</div>
+			
+			<br><br><br><br><br><br>
+			<button onclick="myFun()">Demo</button>
+		</form>
+		<label class="already">New to feedo ? <a href="{{ url_for('join') }}">Join Now</a></label>
+		<!--<div id="demo"></div>-->
+    </body>
+	<script>
+function myFun(){
+			//document.getElementById("demo").innerHTML = "I'm in javascript";
+var data = {name: 'signin' };
+
+
+$.ajax({
+    type: 'POST',
+    url: '/signin',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json; charset=utf-8'
+}).done(function(msg) {
+    alert("Data Saved: " + msg);
+});
+}
+
+</script>
+ </html>
